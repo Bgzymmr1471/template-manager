@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pertemuan · Symphony Course Manager</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="layout-header"></div>
+    <div class="app-shell">
+      <div id="layout-sidebar"></div>
+      <main class="app-main">
+        <div
+          class="page-header d-flex justify-content-between align-items-center flex-wrap gap-2"
+        >
+          <div>
+            <h1 class="page-title">Pertemuan</h1>
+            <p class="page-subtitle">
+              Catat pertemuan, materi, dan catatan pembelajaran
+            </p>
+          </div>
+          <button
+            class="btn btn-primary"
+            id="add-pertemuan-btn"
+            data-testid="add-pertemuan-btn"
+          >
+            <i class="bi bi-plus-lg me-1"></i> Catat Pertemuan
+          </button>
+        </div>
+
+        <div id="config-warning"></div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="toolbar">
+              <div class="input-group" style="max-width: 280px">
+                <span class="input-group-text bg-white"
+                  ><i class="bi bi-search"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-pertemuan"
+                  placeholder="Cari murid..."
+                  data-testid="search-pertemuan-input"
+                />
+              </div>
+              <input
+                type="date"
+                class="form-control"
+                id="filter-tanggal"
+                data-testid="filter-tanggal-pertemuan"
+                style="max-width: 200px"
+              />
+              <button
+                class="btn btn-outline-secondary"
+                id="clear-filter-btn"
+                data-testid="clear-filter-pertemuan"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Murid</th>
+                  <th>Ke-</th>
+                  <th>Durasi</th>
+                  <th>Materi</th>
+                  <th>Catatan</th>
+                  <th class="text-end">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="pertemuan-tbody" data-testid="pertemuan-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal Form Pertemuan -->
+    <div class="modal fade" id="pertemuan-modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="pertemuan-form" data-testid="pertemuan-form">
+            <div class="modal-header">
+              <h5 class="modal-title" id="pertemuan-modal-title">
+                Catat Pertemuan
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="pertemuan-id" />
+              <div class="mb-3">
+                <label class="form-label" for="pertemuan-murid"
+                  >Murid <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  id="pertemuan-murid"
+                  required
+                  data-testid="pertemuan-murid-select"
+                ></select>
+              </div>
+              <div class="row g-3">
+                <div class="col-7">
+                  <label class="form-label" for="pertemuan-tanggal"
+                    >Tanggal <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="pertemuan-tanggal"
+                    required
+                    data-testid="pertemuan-tanggal-input"
+                  />
+                </div>
+                <div class="col-5">
+                  <label class="form-label" for="pertemuan-durasi"
+                    >Durasi (menit)</label
+                  >
+                  <input
+                    type="number"
+                    min="0"
+                    class="form-control"
+                    id="pertemuan-durasi"
+                    value="90"
+                    data-testid="pertemuan-durasi-input"
+                  />
+                </div>
+              </div>
+              <div class="mt-3">
+                <label class="form-label" for="pertemuan-materi">Materi</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pertemuan-materi"
+                  placeholder="mis. Major scale C"
+                  data-testid="pertemuan-materi-input"
+                />
+              </div>
+              <div class="mt-3">
+                <label class="form-label" for="pertemuan-catatan"
+                  >Catatan</label
+                >
+                <textarea
+                  class="form-control"
+                  id="pertemuan-catatan"
+                  rows="3"
+                  placeholder="Catatan pembelajaran..."
+                  data-testid="pertemuan-catatan-input"
+                ></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-bs-dismiss="modal"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="pertemuan-submit-btn"
+                data-testid="pertemuan-submit-btn"
+              >
+                Simpan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/pertemuan.js"></script>
+  </body>
+</html>
