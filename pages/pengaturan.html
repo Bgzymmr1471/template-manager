@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pengaturan · Symphony Course Manager</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../assets/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="layout-header"></div>
+    <div class="app-shell">
+      <div id="layout-sidebar"></div>
+      <main class="app-main">
+        <div class="page-header">
+          <h1 class="page-title">Pengaturan</h1>
+          <p class="page-subtitle">
+            Konfigurasi aplikasi (tersimpan di Google Sheets)
+          </p>
+        </div>
+
+        <div id="config-warning"></div>
+
+        <div class="row g-3">
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <i class="bi bi-sliders me-2"></i>Pengaturan Aplikasi
+              </div>
+              <div class="card-body">
+                <form id="pengaturan-form" data-testid="pengaturan-form">
+                  <div id="pengaturan-loading" class="text-center py-4">
+                    <div class="spinner-border text-primary"></div>
+                    <div class="text-muted mt-2">Memuat pengaturan...</div>
+                  </div>
+                  <div id="pengaturan-fields" class="d-none">
+                    <div class="mb-3">
+                      <label class="form-label" for="set-nama_aplikasi"
+                        >Nama Aplikasi</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="set-nama_aplikasi"
+                        data-testid="set-nama-aplikasi"
+                      />
+                    </div>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label" for="set-durasi_default"
+                          >Durasi Default (menit)</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="set-durasi_default"
+                          data-testid="set-durasi-default"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="set-mata_uang"
+                          >Mata Uang</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="set-mata_uang"
+                          data-testid="set-mata-uang"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="set-harga_4x"
+                          >Harga Paket 4x</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="set-harga_4x"
+                          data-testid="set-harga-4x"
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="set-harga_8x"
+                          >Harga Paket 8x</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="set-harga_8x"
+                          data-testid="set-harga-8x"
+                        />
+                      </div>
+                    </div>
+                    <div class="mt-4">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="pengaturan-submit-btn"
+                        data-testid="pengaturan-submit-btn"
+                      >
+                        <i class="bi bi-save me-1"></i> Simpan Pengaturan
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-5">
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="bi bi-database-add me-2"></i>Data Contoh
+              </div>
+              <div class="card-body">
+                <p class="text-muted small mb-3">
+                  Masukkan data contoh (Budi, Sari, Andi + pertemuan &
+                  pembayaran) untuk uji coba cepat. Hanya data contoh yang akan
+                  dihapus saat dibersihkan.
+                </p>
+                <div class="d-flex gap-2">
+                  <button
+                    class="btn btn-primary"
+                    id="seed-btn"
+                    data-testid="seed-sample-btn"
+                  >
+                    <i class="bi bi-plus-circle me-1"></i> Isi Data Contoh
+                  </button>
+                  <button
+                    class="btn btn-outline-danger"
+                    id="clear-sample-btn"
+                    data-testid="clear-sample-btn"
+                  >
+                    <i class="bi bi-trash me-1"></i> Hapus Data Contoh
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <i class="bi bi-info-circle me-2"></i>Informasi
+              </div>
+              <div class="card-body">
+                <p class="text-muted small mb-2">Status koneksi API:</p>
+                <div id="api-status" data-testid="api-status"></div>
+                <hr />
+                <p class="small mb-1"><strong>Arsitektur</strong></p>
+                <p class="text-muted small mb-0">
+                  GitHub Pages (frontend) → Google Apps Script (API) → Google
+                  Spreadsheet (database). Untuk mengubah URL API, edit
+                  <code>js/config.js</code>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/pengaturan.js"></script>
+  </body>
+</html>
